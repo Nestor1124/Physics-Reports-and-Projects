@@ -1,0 +1,268 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage[width=6.2in,height=8.4in]{geometry}
+\usepackage{array}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{float}
+\setlength{\parindent}{0em}
+\usepackage{cancel}
+\usepackage{mathptmx}
+\usepackage{biblatex}
+\addbibresource{references.bib}
+
+\title{Pulsed Nuclear Magnetic Resonance \\ \Large{Florida International University}\\\large{Department of Physics}}
+\author{Nestor Viana}
+\date{October 2021} 
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    \noindent We determined the spin-lattice and spin-spin relaxation times, $\tau_1$ and $\tau_2$, respectively, of a mineral oil sample subject to an external magnetic field. Our data were extracted through pulsed nuclear magnetic resonance. This experiment yielded values of $\tau_1 = (29.9\pm 0.1)$ ms and $\tau_2 = (8.50\pm 0.08)$ ms.  
+\end{abstract}
+\medskip
+\begin{multicols}{2}
+\section{Introduction}
+Nuclear magnetic resonance (NMR) is a spectroscopic tool largely used in the fields of chemistry, physics, etc., most notoriously known for its applications in the field of magnetic resonance imaging (MRI) \cite{musclefibers}. This tool probes the different types of relaxation times of nuclei in organic and inorganic chemical substances in response to an induced disturbance in the magnetic spin of such nuclei to determine their molecular structure, such as that of RNA \cite{RNA}, as well as other material properties. This method was first explored independently in the 1940s by Edward Mills Purcell, physics professor at Harvard University, and Felix Bloch, physics professor at Stanford University, when both simultaneously attempted to develop a technique aimed at mapping chemical structures with a magnetic moment, subject to a continuous, external radio frequency magnetic field. The frequency of this field was altered and tuned to resonance to characterize the responses of atomic nuclei of a sample, hence the name.\\ 
+
+A few years later in 1950, postdoctoral faculty at the University of Illinois Erwin Hahn discovered a special type of signal produced by two consequent pulses of an RF field upon a sample, called a \textit{spin echo} signal, which was characterized by the time delay between the pulses. This discovery paved the path to establish NMR techniques as an indispensable tool still used to this day. 
+
+\section{General Background}
+\subsection{The Bohr Magneton}
+For simplicity, consider a charged particle $q$ with mass $m$ in uniform motion with speed $v$ around a circle of radius $r$ (Figure \ref{fig:bohr}). Thanks to the motion of the particle, we can assign a current 
+\begin{equation}
+    i = \frac{q}{t} = \frac{qv}{2\pi r}
+\end{equation}
+which gives a magnetic dipole moment 
+\begin{align}
+    \va*{\mu} &= (\text{current})(\text{area enclosed})\\ 
+        &= \frac{qv}{2\pi r}\pi r^2 = \frac{q}{2m}(m\va*{v}\times\va*{r})\\
+        &= \frac{q}{2m}\va*{L}
+\end{align}
+where $\va*{L}$ denotes the orbital angular momentum of the particle. Of course, this is merely a classical picture of motion of a charged particle around a nucleus. When taking quantum effects into consideration, the magnetic dipole moment of a fermion (spin-1/2 particle) becomes 
+\begin{equation}
+    \va*{\mu} = g_q\frac{q}{2m}\frac{\hbar}{2}\,\ell(\ell+1)\vu*{L}
+\end{equation}
+with $\ell$ representing the orbital momentum quantum number and $g_q$ is a unitless factor known as the \textit{spectroscopic splitting factor}. In particular, we can express this quantity as 
+\begin{align}
+    \va*{\mu} &= g_q\mu_B\va*{L} = \gamma \va*{L}
+\end{align}
+where 
+\begin{equation}
+    \mu_B = \frac{q\hbar}{2m_q}
+\end{equation}
+is known as the \textit{Bohr magneton} for protons and electrons.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{bohrmagneton.png}
+    \caption{Classical Bohr magneton.}
+    \label{fig:bohr}
+\end{figure}
+
+\subsection{Larmor Precession \& Zeeman Effect}
+When a particle with magnetic dipole moment $\va*{\mu}$ is placed in a magnetic field $\va*{B}$, a magnetic torque will be produced and act on the charged particle $q$:
+\begin{equation}\label{torque}
+    \va*\tau = \va*\mu\times\va* B = \dv{\va* L}{t} = \frac{1}{\gamma} \dv{\va*\mu}{t}
+\end{equation}
+which will induce magnetic spin precession about $\va* B$.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = .7]{precession.png}
+    \caption{Magnetic spin precession.}
+    \label{fig:precession}
+\end{figure}
+
+From \eqref{torque} and Figure \ref{fig:precession}, we can easily arrive to 
+\begin{align}
+    \mu B_0\sin\theta &= \frac{\mu}{\gamma}\sin\theta \qty(\dv{\varphi}{t})\\
+    \omega_0 :&= \qty(\dv{\varphi}{t}) = \gamma B_0
+\end{align}
+with $\omega_0$ known as the Larmor frequency. Additionally, the presence of the magnetic field $\va* B$ causes a splitting in the previously nondegenerate ground state energy level of a fermion. This process is referred to as the Zeeman effect (Figure \ref{fig:zeeman}). 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.85]{levels.png}
+    \caption{Zeeman effect: splitting of ground state energy level.}
+    \label{fig:zeeman}
+\end{figure}
+
+The energy of each sublevel is given by 
+\begin{equation}
+    U = -\va*{\mu} \cdot \va*{B} = -\mu_z B_0 = -\gamma\hbar m_z B_0
+\end{equation}
+so that 
+\begin{align}
+    \Delta U = U_- - U_+ &= -\gamma\hbar\qty(-\frac12 - \frac12)B_0 \\
+            &= \gamma\hbar B_0
+\end{align}
+is the energy difference between the ground state sublevels, with $\gamma = 2.674\times10^8$ rad/s$\cdot$T for free protons.
+
+\subsection{Net Magnetization at Constant Temperature}
+Since this experiment relies on thermodynamic mechanisms to determine the spin-relaxation times, we derive the net magnetic expression of our mineral oil sample using the canonical ensemble. This model utilizes all available energy states $U_j$ of a system to produce a probability distribution for any particular eigenstate $\psi_i$ of that system, as outlined in \cite{thermal}. In particular,
+\begin{equation}\label{canonicalp}
+    p(\psi_i) = \displaystyle{\frac{e^{-U_i/kT}}{\sum_j e^{-U_j/kT}}}
+\end{equation}
+
+can be used to determine the average magnetic moment along $\va* B$,
+\begin{equation}\label{averageMu}
+    \langle \mu_z \rangle = \sum_i \mu_z(\psi_i)p(\psi_i)\, .
+\end{equation}
+where $T$ is the temperature of the system and $k$ is Boltzmann's constant. From the previous subsection, we know that there are 2 possible energy levels in the ground state (for 1 proton). The denominator of \eqref{canonicalp} yields,
+\begin{align*}
+    \sum_j e^{-U_j/kT} &= e^{-U_-/kT} + e^{-U_+/kt}\\
+        &= e^{\gamma\hbar B_0/2kT} + e^{-\gamma\hbar B_0/2kT}\\
+        &= 2\cosh\qty(\frac{\gamma\hbar B_0}{2kT})
+\end{align*}
+so that \eqref{averageMu} becomes,
+\begin{align}
+    \langle \mu_z \rangle &=\frac{\gamma\hbar}{2\cosh\qty(\frac{\gamma\hbar B_0}{2kT})} \sum_i m_z(U_i)e^{-U_i/kT} \\
+    &= \frac{\gamma\hbar}{2\cosh\qty(\frac{\gamma\hbar B_0}{2kT})}\qty[-\frac{e^{-\frac{\gamma\hbar B_0}{2kT}}}{2}+\frac{e^{ \frac{\gamma\hbar B_0}{2kT}}}{2}] \\
+    &= \frac{\gamma\hbar}{2}\frac{2\sinh\qty(\frac{\gamma\hbar B_0}{2kT})}{2\cosh\qty(\frac{\gamma\hbar B_0}{2kT})}\\
+    &= \frac{\gamma\hbar}{2}\tanh\qty(\frac{\gamma\hbar B_0}{2kT})\\
+    &= \mu_z\tanh\qty(\frac{\mu_z B_0}{kT})
+\end{align}
+and since $kT \gg \mu_z B_0$, using the Taylor expansion of $\tanh(x)$, $$\tanh(x) = x-\frac{x^3}{3}+\frac{2x^5}{15} +O(x^6)$$
+we have, 
+\begin{equation}\label{netMagnetization}
+    M_0 = N\langle \mu_z \rangle \approx N\mu_z \frac{\mu_z B_0}{kT} = \frac{N\mu_z^2 B_0}{kT}
+\end{equation}
+which is the net magnetization of the mineral oil sample of $N$ total nuclei.
+
+\section{Spin-Lattice and Spin-Spin Relaxation}
+The magnetization process of our sample is a gradual process, rather than an instantaneous one. Similar to the mechanism for two objects at different temperatures to reach thermal equilibrium, magnetization is a very rapid process at first and then it slows down until the maximum net magnetization value is reached. This hints to the possible method of magnetization:
+\begin{equation}
+    \dv{M_z(t)}{t} \propto M_0 - M_z(t)
+\end{equation}
+
+In practice, it is useful to associate a quantity that indicates the point at which most of the magnetization has been achieved. This quantity is typically associated with a \textit{time constant}, which is the time in which a certain procedure has been carried out through until $1/e\approx 37\%$ of the process is left. Hence, we introduce the constant $\tau_1$, known as the \textit{spin-lattice relaxation time}, to characterize the time it takes for the sample to reach the equilibrium value, $M_0$:
+\begin{equation}\label{dmdt}
+    \dv{M_z(t)}{t} = \frac{M_0 - M_z(t)}{\tau_1} .
+\end{equation}
+The constant $\tau_1$ is called as such since this magnetization mechanism is based on energy exchanges between the atomic nuclei and their surrounding (i.e., their lattice). Specifically, the nuclei in the sample must give off energy in order to reach equilibrium. Moreover, $\tau_1$ is also called the \textit{longitudinal relaxation time}, as it measures the time at which the individual dipole moments in the sample have aligned with the $\va* B$ field in the $z$-direction. Equation \eqref{dmdt} has general solution 
+\begin{equation}\label{m_z}
+    M_z(t) = M_0 - Ce^{-t/\tau_1}.
+\end{equation}
+
+On the other hand, we can also determine a similar time constant for latitudinal spin relaxation of the nuclei, $\tau_2$. This quantity indicates the time at which most of the individual dipole moments in the oil sample have dephased after being previously aligned parallel with each other, also known as \textit{spin-spin relaxation}. Similar to longitudinal relaxation, latitudinal relaxation is a thermodynamic process which undergoes a rapid phase proceeded by a slow phase. The difference is the equilibrium point of these processes. For $\tau_1$, the system tends toward aligning the net magnetization in the $z$-direction parallel to the external $\va* B$ field they're subjected to. That is, 
+\begin{equation}
+    \lim_{t\to\infty} M_z(t) = M_0 \,,
+\end{equation}
+ whereas $\tau_2$ measures the decoherence rate of the net magnetization in the $x$- and $y$-directions. Thus, due to thermal effects and inhomogeneity in the local magnetic fields surrounding each nuclei, $M_x(t)$ and $M_y(t)$ both tend to 0 as $t$ grows larger. This gives rise to the mechanisms for these two quantities:
+ \begin{align}
+     \dv{M_{x}(t)}{t} &= -\frac{M_x(t)}{\tau_2}\\ 
+     \dv{M_y(t)}{t} &=-\frac{M_y(t)}{\tau_2}
+ \end{align}
+both with solution,
+\begin{equation}\label{mxy}
+    M_{x,y}(t) = Ce^{-t/\tau_2}\,.
+\end{equation}
+
+In addition, since the inhomogeneity in the magnetic field $\Delta\va*B$ in the vicinity of the sample nuclei is the driving factor of spin-spin decoherence, we must take into account this effect when measuring $\tau_2$:
+
+\begin{equation}\label{truetau2}
+    \frac1{\tau_2^*}=\frac1{\tau_1}+\frac1{\tau_2} + \gamma\Delta B \,.
+\end{equation}
+ The term $\gamma\Delta B = \Delta\omega_0$ is the contribution of the spread in Larmor frequencies \cite{NMRpdf}. This value of $\tau_2$ is the effective spin-spin relaxation time. 
+
+
+\section{Experimental Procedure}
+As mentioned in previous sections, we utilize a mineral oil sample together with a standard TeachSpin Pulsed/CW NMR Spectrometer and a 0.5 Tesla permanent magnet  surrounded by 2 pickup coils which serve an RF prove. These coils are located in such a way that their axis is perpendicular to the magnetic field of the permanent magnet, $\va* B$. The equipment also features an oscilloscope and a voltage amplifier to observe the signal from the NMR pulses. First, we simply send periodic probe pulses to the sample inside the permanent magnet and adjust the frequency of those pulses until we obtain a maximum reading of the voltage measured by the coils. This will indicate that we're operating at the Larmor frequency, $\omega_0$. 
+
+Next, we determine the duration of the pulses needed to induce $\pi/2$ and $\pi$ spin flips with respect to $\va* B$. For this, we tune the knob for pulse length duration until the signal observed on the oscilloscope vanishes, and then until the signal reaches its maximum again. These time values will correspond with the $\pi/2$ and $\pi$ spin flips, respectively. We note the relation between these two quantities as 
+\begin{equation}
+    t_{\pi} = 2t_{\pi/2}.
+\end{equation}
+
+At last, we tune the axes of the permanent magnet to ensure that the permanent magnetic field is as uniform as we can make it. That is, the axis values are tweeked until the signal on the oscilloscope becomes the widest. These are the preliminary steps to perform measurements on our sample, as described in \cite{NMRpdf}.
+
+%\begin{multicols}{2}
+%\begin{figure*}[hb]
+%    \centering
+%    \includegraphics[scale=.57]{spectrometer.PNG}
+%    %\rule{\linewidth}{3cm}
+%    \caption{TeachSpin Pulsed/CW NMR Spectrometer.}
+%\end{figure*}
+%\end{multicols}
+
+\subsection{Spin-Lattice Procedure}
+To determine $\tau_1$, we simply send $\pi$ RF pulses into our sample at the Larmor frequency, delayed by a time interval of $t_i$ and record the highest voltage reading from the oscilloscope. We vary the time interval between the pulses continuously to obtain a smooth set of data. Since the nuclei spins start at a $\pi$ angle with respect to the $\va* B$ field of the permanent magnet (refer to Figure \ref{fig:precession}), we must note the initial condition 
+\begin{equation}
+    M_z(0) = -M_0
+\end{equation}
+which we can plug into \eqref{m_z} as an initial condition and determine the value of the integration constant $C$. This results in 
+\begin{equation}\label{M_z(t)}
+    M_z(t) = M_0\qty(1-2e^{t/\tau_1})\,.
+\end{equation}
+Moreover, the value of the peak voltage will keep decreasing until the signal vanishes at $t_i = t_{\pi/2}$, and then increase back to its maximum at $t_i=t_\pi$. This is because the oscilloscope returns the absolute value of the the signal picked up by the coils. Hence, we must also switch every value of the oscilloscope signal before $t_{\pi/2}$ to negative in order to obtain a smooth exponential curve that matches the model in \eqref{M_z(t)}. 
+
+\subsection{Spin-Spin Procedure}
+We follow a slightly different procedure from the previous in order to measure $\tau_2$. Using two different pulses, A and B, with pulse A being a $\pi/2$ RF pulse, and B a $\pi$ RF pulse. Pulse A acts as the catalyst, creating $\pi/2$ spin flips with respect to the z-axis, and B acts as the prove, creating a \textit{spin echo} \ref{fig:my_label}. These two pulses are again separated by a time delay $t_i$, which we vary continuously to gather data. Since spin-spin decoherence is a rather quick process, the more $t_i$ increases, the bigger the dephased population becomes. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.56]{spinecho.PNG}
+    \caption{Schematic of a spin-echo signal created by a $\pi/2-\pi$ pulse pair \cite{spinecho}.}
+    \label{fig:my_label}
+\end{figure}
+
+In this case, note that at $t_i <0$, $M_z(t_i)=M_0$, but right when the first A pulse arrives, $$M_{x,y}(0)=M_0$$ corresponding to all the spins now aligned on the $x$-$y$ plane, which gives us an initial condition for \eqref{mxy}. And so, we have 
+\begin{equation}\label{Mxy}
+    M_{x,y}(t) = M_0e^{-t/\tau_2}
+\end{equation}
+
+\section{Results}
+Using the procedure outlined in the previous section, we obtained 97 data points for the spin-lattice relaxation experiment, and 48 data points for the spin-spin relaxation time and plotted these in Figures \ref{fig:spinlattice} and \ref{fig:spinspin}. We linearized \eqref{M_z(t)} and \eqref{Mxy} as follows:
+\begin{equation}
+    \ln\qty(1-\frac{M_z(t)}{M_0}) = -\frac{1}{\tau_1}t + \ln(2)
+\end{equation}
+and
+\begin{equation}
+    \ln\qty(\frac{M_{x,y}(t)}{M_0}) = -\frac{1}{\tau_2}t 
+\end{equation}
+
+Then we fit a least-squares regression line to determine the values of $\tau_1$,  $\tau_2$, and $\tau_2^*$.
+
+\begin{align*}
+    \tau_1 &= (29.9\pm 0.1) \text{  ms}\\
+    \tau_2 &= (11.8\pm 0.1) \text{  ms}\\
+    \tau_2^* &= (8.50\pm 0.08) \text{  ms}
+\end{align*}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{spinlattice.png}
+    \caption{Spin-Lattice relaxation.}
+    \label{fig:spinlattice}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{spinspin.png}
+    \caption{Spin-spin relaxation.}
+    \label{fig:spinspin}
+\end{figure}
+
+\section{Conclusion}
+In this experiment, we have calculated the longitudinal and latitudinal relaxation times of a sample of mineral oil to be $\tau_1 = (29.9\pm 0.1)$ ms and $\tau_2^* = (8.50\pm 0.08)$ ms, respectively. Our data seems to have followed the exponential model decays for these two processes detailed in Section 3 to a great degree of accuracy. In accordance to these models, we have also confirmed that $\tau_2^*<\tau_1$, as projected by \eqref{truetau2}, which further assure the accuracy of the results. However, in contrast with the theory developed in \cite{NMRpdf}, the difference in these two quantities is merely a factor of about 3, and not a whole order of magnitude ($\tau_2^* \ll \tau_1$). This leads us to believe that this assumption ($\tau_2^* \ll \tau_1$) is grounded on having great local variability in $\va*B$ across the volume of a sample in more practical experiments, like in MRI techniques, which demonstrates the significance of performing relaxation time experiments in constant temperature environments. 
+
+\printbibliography
+
+\end{multicols}
+
+\vspace{1cm}
+
+\begin{figure*}[hb]
+    \centering
+    \includegraphics[scale=.57]{spectrometer.PNG}
+    %\rule{\linewidth}{3cm}
+    \caption{TeachSpin Pulsed/CW NMR Spectrometer.}
+\end{figure*}
+
+\end{document}
