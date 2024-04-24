@@ -1,0 +1,33 @@
+\documentclass[10.5pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[width=6.2 in, height=8.4 in]{geometry}
+\setlength{\parindent}{0em}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{biblatex}
+\addbibresource{references.bib}
+
+\title{Optical Communication System\\
+\large EEL 5500 - Digital Communications I}
+\author{Nestor Viana, Gustavo Ramirez}
+\date{March 2024}
+
+\begin{document}
+
+\maketitle
+
+\section*{Abstract}
+\textbf{Purpose:} The purpose of this project is to create a communication channel that transmits and receives data via Amplitude Shift Key (ASK) modulation of electromagnetic carrier waves \cite{Wavelength_Electronics_2022}. In particular, we will adjust a potentiometer to a resistance value of $R$ and this value will be transmitted via fiber optic cable and displayed on an LCD screen connected to the receiver part of the system. \\
+
+\textbf{Approach:} We outline the schematic of our system as follows.
+\begin{enumerate}
+    \item Create and upload a program to a $1^{\text{st}}$ arduino that will read the resistance value of the potentiometer and convert it to binary.
+    \item The 0s and 1s will modulate the voltage supplied to a fiber optic transmitter module through an appropriate driver circuit so that the intensity and amplitude of the wave changes accordingly \cite{Majumdar}.
+    \item The modulated wave will travel through a fiber optic cable to a fiber optic receiver module.
+    \item The photodiode inside the receiver module will drive a current that is proportional to the intensity of the light signal, which will then be amplified and converted into a logic-level signal via a 2$^\text{nd}$ arduino \cite{Smith}.
+    \item The arduino on the receiver side will interpret the contents of the signal into text characters which will finally be displayed on an LCD screen.
+\end{enumerate}
+
+\printbibliography
+
+\end{document}
