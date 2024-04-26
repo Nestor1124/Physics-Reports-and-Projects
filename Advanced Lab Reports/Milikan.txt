@@ -1,0 +1,200 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage[width=6.2in,height=8.4in]{geometry}
+\usepackage{array}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{float}
+\setlength{\parindent}{0em}
+\usepackage{cancel}
+\usepackage{subcaption}
+\usepackage{mathptmx}
+\usepackage{biblatex}
+\addbibresource{references.bib}
+
+
+\usepackage{yhmath}
+
+\title{Millikan Oil Drop Experiment\\ \Large{Florida International University}\\\large{Department of Physics}}
+\author{Nestor Viana}
+\date{November 2021} 
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent In this laboratory, we perform the famous Millikan oil drop experiment to determine the value of the elementary charge. Using seven sample droplets and implementing Monte Carlo techniques, the experimental charge came out to $(1.9\pm 0.6)\times 10^{-19}$ Coulomb. 
+\end{abstract}
+\medskip
+\begin{multicols}{2}
+
+\section{Introduction}
+Robert Andrews Millikan designed a sophisticated experiment where atomized oil droplets suspended in air are ionized and subsequently subjected to a uniform electric field created by a parallel plate capacitor. Through the ionization process, these small droplets gain a few electrons and acquire a net negative charge, and thus the electric force drives them through the parallel plate capacitor based on the polarity of the top and bottom plates. Or alternatively, the droplets simply undergo free-fall motion if no electric field is present. 
+When Millikan introduced this procedure and made this great discovery, several other scientists had already estimated the value of the elementary charge. Namely, Dr. G. Johnstone Stoney had estimated the value of the fundamemtal charge, $q_e$, to be $0.3\times 10^{-10}$ e.s.u. (1891); Townsend calculated the value $3\times 10^{-10}$ e.s.u. using water droplets in the late 1890s; J.J. Thompson reached $6\times 10^{-10}$ e.s.u. (1900); and lastly, H.S. Wilson, adding a few improvements to Thompson's procedure, reported $3\times 10^{-10}$ e.s.u. for $q_e$. Moreover, scientists had also estimated the charge-to-mass ratio of the electron prior to Millikan's experiment, though this quantity did not reveal either values of charge or mass. The ground-breaking observation of charge quantization and a precise measurement of the elementary charge, $q_e$, was a paramount factor that guided the exponential growth and development of technological devices throughout the twentieth century.
+
+\section{Theory}
+\subsection{Stokes' Law}
+We ground our theoretical ideas on the motion of negatively ionized, spherical mineral oil droplets through air in both presence and absence of an electric field. In the absence of an electric field, a small oil droplet of mass $m$ is subject to a downward gravitational force, $mg$, a drag force, and a buoyant force in free falling motion through air. The buoyant force on the droplet is negligible since mineral oil is about an order of magnitude denser than the medium it travels through, whereas the drag force is proportional to the (terminal) velocity of the droplet, $v_f$. Thanks to the physical characteristics of our sample droplets (i.e. material homogeneity, laminar flow, spherical shape, etc.), the Navier-Stokes equations for the fluid dynamics of the oil droplets simplify quite nicely, resulting in the equation for the drag force, known as \textit{Stokes' Law},
+
+\begin{equation}\label{drag}
+    F_d = 6\pi\eta av_f \,
+\end{equation}
+where $\eta$ is the viscosity of air, $a$ is the radius of the droplet. A free-body diagram (FBD) is drawn in Figure \ref{fbd1}. Since the droplet travels at terminal velocity, using Newton's 2nd Law, 
+
+\begin{equation}\label{gravity-drag}
+    mg = 6\pi\eta av_f\,.
+\end{equation}
+
+If $\rho$ is the density of the mineral oil sample, then \eqref{gravity-drag} becomes, 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.6]{fbd1.png}
+    \caption{FBD of oil droplet in free-fall, with $k=6\pi\eta a$.}
+    \label{fbd1}
+\end{figure}
+
+\begin{align}
+    \frac43 \pi a^3 \rho g &= 6\pi\eta av_f\\
+     a &= \sqrt{\frac{9\eta v_f}{2\rho g}}\,. 
+\end{align}
+
+However, Stokes' Law assumes that the droplets fall rather quickly through air ($\sim$ 0.1 cm/s), but as we shall observe, our droplets fall and rise in a velocity range that is 10 to 100 times smaller than this speed due to constant collisions with air molecules, hence we must account for this discrepancy using a correction factor for the viscosity of air \cite{millikanelectron}:
+
+\begin{equation}\label{viscosity*}
+    \hat\eta = \eta\qty( \frac{1}{1+\frac{b}{pa}})
+\end{equation}
+
+where $b$ is a constant given in the Pasco Manual \cite{pasco}, and $p$ is the atmospheric pressure. Substituting \eqref{viscosity*} into (4) gives,
+
+\begin{equation}\label{radius*}
+    a = \sqrt{\qty(\frac{b}{2p})^2 + \frac{9\eta v_f}{2\rho g}} - \frac{b}{2p}
+\end{equation}
+
+\subsection{The Charge of Droplets}
+
+In the presence of an upward electric field, $E$, established by a parallel plate capacitor (Figure \ref{fbd2}), the ionized droplets are, in addition, subject to an electrostatic force that is proportional to the net charge of each droplet, $Q$. Hence, the droplets tend toward the positive plate of the capacitor and are consequently met by a downward drag force. Similar to free-fall motion, the droplets reach terminal (rise) velocity rapidly, $v_r$, thus we have,
+
+\begin{equation}\label{e-g-d}
+    EQ = mg + 6\pi\eta av_r
+\end{equation}
+
+Further combining \eqref{radius*} and \eqref{e-g-d} results in
+
+\begin{equation}\label{Q}
+    Q = \frac{6\pi}{E} \sqrt{\frac{9\eta^3}{2g\rho\qty(1+\frac{b}{pa})}}(v_f+v_r)\sqrt{v_f}
+\end{equation}
+
+with $E=V/d$, where $V$ is the potential difference between the plates and $d$ is their separation distance.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.57]{fbd2.png}
+    \caption{FBD of oil droplet in an electric field, $E$.}
+    \label{fbd2}
+\end{figure}
+
+
+
+
+
+
+\section{Experimental Procedure}
+
+Using an atomizer, a few hundred of micrometer-sized oil droplets are deposited inside the ionizing chamber where they are allowed to undergo free-fall motion and reach terminal velocity to collect values for the data variable $v_f$, shown in Figure \ref{chamber}. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.135]{chamber.jpg}
+    \caption{Oil drop apparatus used by Millikan \cite{Oildrop}.}
+    \label{chamber}
+\end{figure}
+
+Next, a Thorium-232 sample is introduced as a source of $\alpha$ particles, which collide with the air molecules inside the ionizing chamber, knocking out a few electrons from these molecules. These ionized air molecules then collide with the falling oil droplets, which in turn results in net negative charges acquired by the droplets. Note than only a few electrons are ever involved in the overall ionization process by $\alpha$ particles, as explained in detail in \textit{The Electron, Its Isolation and Measurement and the Determination of some of its Properties.}, by Millikan \cite{millikanelectron}.\\
+
+Once the droplets are negatively charged, the $\alpha$ particle source is turned off (though the oil droplets may still re-ionize through subsequent collisions with charged air molecules). The parallel plate capacitor then sets an electric field downward, making the droplets rise through the chamber and reach terminal velocity, $v_r$. 
+
+\section{Results}
+\subsection{The Elementary Charge, $q_e$}
+The measurements on the variables $v_f$ and $v_r$ were done through observation of 7 oil droplets in the ionizing chamber. These data allow for the determination of $Q$ using Equation \eqref{Q}, summarized in Figure \ref{Qvsn}. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{chargedata.png}
+    \caption{Measurements of droplet charges, $Q$, using 7 droplets.}
+    \label{Qvsn}
+\end{figure}
+
+To determine the magnitude of the elementary charge, $q_e$, we employ a key detail discussed in the previous section: \textbf{$\alpha$-particle radiation only knocks out a few electrons}. Based on the the information given in \cite{millikanelectron}, we may assume that the net charge acquired by the oil droplets is due to no more than 15 electrons. Note that this statement does not assume that charge is quantized. Hence, we divide the values of $Q$ by an array of random real numbers (not restricted to integers) varying from 1 to 15, and obtain an estimate of $q_e$ through plotting these results and fitting a Poisson function (due to low counts in data) and obtaining the mean value of $q_e$ (Figure \ref{poisson}). \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{chargegraph.png}
+    \caption{Distribution of $q_e$ using an array of random numbers, fitted with a Poisson curve. For this instance of the simulation, $q_e = (1.66\pm 0.18)\times 10^{-19}$ Coulomb, and $\chi_\nu^2 = 1.32$ with $\nu=18$ degrees of freedom.}
+    \label{poisson}
+\end{figure}
+
+Yet, since this method encompasses a random process, it would not be appropriate to perform this procedure once and be satisfied with only one estimate of $q_e$. Thus, we carry out this 300 simulations of this method and draw more concrete conclusions. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{300sims.png}
+    \caption{Monte Carlo simulation to determine $q_e$ performed 300 times.}
+    \label{300}
+\end{figure}
+
+Thanks to the large number of data points gathered from the simulations, the set of data in Figure \ref{300} behaves like a Gaussian distribution, as dictated by the Central Limit Theorem \cite{CLT}. Consequently, a Gaussian fit
+
+\begin{equation}\label{gaussianfit}
+    G(x;\mu,\sigma, A) \sim  A\exp\qty[-\frac{(x-\mu)^2}{2\sigma^2}]
+\end{equation}
+
+is appropriate, generating the set of parameters, 
+
+\begin{align*}
+    \mu &= (1.91 \pm 0.04) \times 10^{-19} \\
+    \sigma &= (0.61 \pm 0.04) \times 10^{-19} \\
+    A &= 62.9 \pm 3.9
+\end{align*}
+
+Thus, we report the final estimate of the elementary charge,
+
+\begin{equation*}
+\boxed{
+    q_e = (1.9\pm 0.6)\times 10^{-19} \text{  Coulomb.}
+    }
+\end{equation*}
+
+\subsection{Charge Quantization}
+
+To determine whether there is enough evidence of charge quantization, that is, if any net charge $Q$ is an integer multiple of $q_e$, we can divide our experimental values of the net charge on the droplets, $Q$, by our newly found estimate for $q_e$. If this procedure yields evenly spaced-out data points that are close to integer values, we may suggest that there is enough evidence to show that charge is quantized. This is done in Figure \ref{quantization}.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{quantization.png}
+    \caption{Graph of the total charge of the droplets, $Q$, divided by $q_e$ vs. oil droplet observed. Values on the vertical axis do not settle orderly around integer values.}
+    \label{quantization}
+\end{figure}
+
+Another way to determine whether our data is accurate enough to suggest char quantization is to set up a hypothesis test around the statistic 
+
+\begin{equation}
+    \Upsilon = \sum\qty|\frac{Q_i}{q_e} - \qty[\frac{Q_i}{q_e}]|
+\end{equation}
+
+where $[x]$ denotes the integer closest to $x$, and determine how well our data might suggest that the charge values $Q_i$ tend to increase or decrease in integer multiples of $q_e$. However, the details of this task are complicated by the random nature of dividing $Q_i$ by real numbers.
+
+\section{Conclusion}
+We navigated through the theory of small liquid droplets falling and rising through air molecules using classical principles such as Newton's second law of motion and Stokes' drag law. These allowed us to device laboratory procedures to determine the value of the fundamental charge, as well the possibility of providing evidence toward the quantization of charge. The former, together with the aid of Monte Carlo simulations, led us to estimating the charge of the electron as $(1.9\pm 0.6)\times 10^{-19}$ Coulomb, about 0.5 standard deviations from the defined value, $1.602\times 10^{-19}$ Coulomb. However, despite reaching an accurate calculation of $q_e$, we failed to find concrete evidence of charge quantization through our experiment, which was performed in a few hours, collecting only a few dozens of data points, unlike Millikan who spent around 5 years repeating and enhancing his experiment to achieve both of these tasks.  
+
+
+\printbibliography
+
+
+\end{multicols}
+\end{document}
+
